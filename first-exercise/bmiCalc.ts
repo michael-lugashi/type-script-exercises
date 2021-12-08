@@ -1,5 +1,5 @@
 function calculateBmi(height: number, weight: number): string {
- const bmi: number = (weight / (height / 100)) ** 2;
+ const bmi: number = (weight / (height/100)** 2) ;
  console.log(bmi);
  if (bmi < 16) {
   return 'Underweight (Severe thinness)';
