@@ -2,9 +2,13 @@ import express = require('express');
 import calculateBmi from './bmiCalc';
 import calculator, { Operation } from './calculator';
 import calculateExercises from './exerciseCalculator';
+import bp = require('body-parser');
 // import calculateExercisesCmdLn from './exerciseCalculatorCmdLn';
 const app = express();
 const PORT = 3003;
+
+app.use(bp.json());
+app.use(bp.urlencoded({ extended: true }));
 
 app.get('/ping', (_req, res) => {
   res.send('pong');
