@@ -1,6 +1,8 @@
 import express = require('express');
 import calculateBmi from './bmiCalc';
 import calculator, { Operation } from './calculator';
+import calculateExercises from './exerciseCalculator';
+// import calculateExercisesCmdLn from './exerciseCalculatorCmdLn';
 const app = express();
 const PORT = 3003;
 
@@ -44,6 +46,20 @@ app.post('/calculate', (req, res) => {
 
   const { value1, value2, op }: body = req.body as body;
   const result = calculator(value1, value2, op);
+  res.send(result);
+});
+
+app.post('/exercise', (req, res) => {
+  console.log('new');
+  console.log(req.body);
+  interface body {
+    days: number[];
+    target: number;
+  }
+  const { days, target }: body = req.body as body;
+  console.log(days);
+  console.log(target);
+  const result = calculateExercises(days, target);
   res.send(result);
 });
 

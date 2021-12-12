@@ -63,3 +63,4 @@ function calculateExercisesCmdLn(
     target,
   };
 }
+export default calculateExercisesCmdLn;
