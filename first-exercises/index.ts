@@ -1,6 +1,6 @@
 import express = require('express');
 import calculateBmi from './bmiCalc';
-import calculator from './calculator';
+import calculator, { Operation } from './calculator';
 const app = express();
 const PORT = 3003;
 
@@ -28,11 +28,21 @@ app.get('/bmi', (req, res) => {
     };
     res.json(response);
   } catch (error: unknown) {
-    res.status(400).json({ error: error.message });
+    if (error instanceof Error) {
+      res.status(400).json({ error: error.message });
+    } else {
+      res.status(500).json({ error: 'Something bad happened!' });
+    }
   }
 });
 app.post('/calculate', (req, res) => {
-  const { value1, value2, op }: {value1: number, value2: number} = req.body;
+  interface body {
+    value1: number;
+    value2: number;
+    op: Operation;
+  }
+
+  const { value1, value2, op }: body = req.body as body;
   const result = calculator(value1, value2, op);
   res.send(result);
 });
